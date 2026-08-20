@@ -1,0 +1,8 @@
+.vscode/**
+.vscode-test/**
+test-rpc.js
+*.vsix
+.git/**
+.gitignore
+README.md
+package-lock.json

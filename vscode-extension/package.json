@@ -1,9 +1,9 @@
 {
   "name": "vscode-discord-rpc-bridge",
-  "displayName": "TESTE RPC RENAN",
-  "description": "Teste da extensão Discord RPC.",
-  "version": "1.0.0",
-  "publisher": "local",
+  "displayName": "VS Code Discord RPC",
+  "description": "Display your current VS Code project, file, programming language and Git branch on Discord Rich Presence.",
+  "version": "1.0.1",
+  "publisher": "renanvelc",
   "engines": {
     "vscode": "^1.80.0"
   },
@@ -16,5 +16,9 @@
   "main": "./extension.js",
   "dependencies": {
     "discord-rpc": "^4.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/renanvelc/vscode-discord-rpc.git"
   }
 }
