@@ -4,6 +4,20 @@ A custom Discord Rich Presence integration for Visual Studio Code.
 
 This project connects Visual Studio Code to Discord through a local Node.js application and a custom VS Code extension, allowing your Discord profile to display information about what you are currently working on.
 
+## Preview
+
+### Discord Rich Presence
+
+<p align="center">
+  <img src="assets/preview1.png" width="70%">
+</p>
+
+### VS Code Integration
+
+<p align="center">
+  <img src="assets/preview2.png" width="90%">
+</p>
+
 ## Features
 
 -  Automatically detects the current workspace/project
