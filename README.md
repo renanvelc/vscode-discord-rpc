@@ -153,5 +153,9 @@ Possible improvements for future versions:
 - Easier installation
 - Better automatic reconnection handling
 
+## Why did I build this if VSCord already exists?
+
+This project started as an experiment to understand how Discord Rich Presence works with Visual Studio Code. Instead of relying on an existing extension, I built my own integration from scratch to learn how VS Code extensions, Node.js, HTTP communication and Discord RPC work together.
+
 ## License
 This project is licensed under the MIT License.
