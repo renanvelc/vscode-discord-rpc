@@ -12,6 +12,15 @@ let vscodeData = null;
 let lastProject = null;
 
 // ==========================================
+// SESSION TIMESTAMP
+// ==========================================
+
+// Created when VS Code is first detected.
+// This timestamp remains unchanged while
+// the Rich Presence is being updated.
+let startTimestamp = null;
+
+// ==========================================
 // LANGUAGE INFORMATION
 // ==========================================
 
@@ -151,6 +160,21 @@ function updatePresence() {
         return;
     }
 
+    // --------------------------------------
+    // CREATE SESSION TIMESTAMP
+    // --------------------------------------
+
+    // Only create the timestamp once.
+    // Changing files will NOT reset it.
+    if (!startTimestamp) {
+
+        startTimestamp = Date.now();
+
+        console.log(
+            "⏱️ Coding session started."
+        );
+    }
+
     const project =
         vscodeData.project || "Unknown Project";
 
@@ -180,6 +204,7 @@ function updatePresence() {
     let state = "";
 
     if (file) {
+
         state += `📄 ${file}`;
     }
 
@@ -202,7 +227,9 @@ function updatePresence() {
     }
 
     if (!state) {
-        state = "💻 Working in Visual Studio Code";
+
+        state =
+            "💻 Working in Visual Studio Code";
     }
 
     // --------------------------------------
@@ -214,6 +241,8 @@ function updatePresence() {
         details: details,
 
         state: state,
+
+        startTimestamp: startTimestamp,
 
         largeImageKey: "vscode",
 
@@ -406,6 +435,9 @@ const server = http.createServer(
         ) {
 
             vscodeData = null;
+
+            // Reset the session timestamp.
+            startTimestamp = null;
 
             rpc.clearActivity()
                 .catch(() => {});
