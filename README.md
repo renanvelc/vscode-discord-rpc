@@ -1,8 +1,45 @@
 # VS Code Discord RPC
 
-A custom Discord Rich Presence integration for Visual Studio Code.
+A VS Code extension that automatically displays your current coding activity on Discord using Rich Presence.
 
-This project connects Visual Studio Code to Discord through a local Node.js application and a custom VS Code extension, allowing your Discord profile to display information about what you are currently working on.
+It detects your current project, file, programming language, and Git branch, keeping your Discord status automatically synchronized with your VS Code workspace.
+
+## Current Version - v1.0.1
+
+The project has evolved from a simple Node.js prototype into a standalone VS Code extension that runs directly inside VS Code.
+
+### Before
+
+The original implementation required manually running a Node.js script:
+
+```bash
+node index.js
+```
+
+The script had to remain running in the background to keep the Discord Rich Presence active.
+
+### Now
+
+The new implementation runs entirely as a VS Code extension.
+
+**Install the extension -> open VS Code -> Discord Rich Presence starts automatically.**
+
+No background terminal, no manual Node.js command, and no additional launcher required.
+
+---
+
+## Features
+
+* Automatic project/workspace detection
+* Displays the currently opened file
+* Detects the programming language
+* Detects the current Git branch
+* Automatically updates Discord Rich Presence
+* Runs directly inside VS Code
+* Uses Discord IPC for communication
+* Distributed as a `.vsix` extension
+
+---
 
 ## Preview
 
@@ -18,144 +55,146 @@ This project connects Visual Studio Code to Discord through a local Node.js appl
   <img src="assets/preview2.png" width="90%">
 </p>
 
-## Features
+---
 
--  Automatically detects the current workspace/project
--  Detects the currently active file
--  Detects the programming language
--  Displays the current Git branch
--  Custom Discord Rich Presence
--  Updates the presence when the active file changes
--  Custom VS Code extension
--  Optional automatic startup with Windows
+## Installation
 
-## Preview
+### From VSIX
 
-The Rich Presence can display information such as:
+1. Download the latest `.vsix` file from the repository.
+2. Open Visual Studio Code.
+3. Press `Ctrl + Shift + P`.
+4. Select `Extensions: Install from VSIX...`.
+5. Select the downloaded `.vsix` file.
+6. Make sure the Discord desktop application is running.
+7. Open a project in VS Code.
 
-- **Visual Studio Code**  
--  Coding in CVSCodeDiscordRPC  
--  index.js  
--  JavaScript  
--  main
+The extension will automatically connect to Discord and update your Rich Presence.
+
+---
+
+## Development
+
+Clone the repository:
+
+```bash
+git clone https://github.com/renanvelc/vscode-discord-rpc.git
+```
+
+Open the extension directory:
+
+```bash
+cd vscode-discord-rpc/vscode-extension
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Open the project in VS Code:
+
+```bash
+code .
+```
+
+Press:
+
+```F5```
+
+This launches the **Extension Development Host**, allowing the extension to be tested without installing the `.vsix`.
+
+---
 
 ## How It Works
 
-The project consists of two main components:
+The extension runs inside VS Code's Extension Host and collects information from the current workspace.
 
-Visual Studio Code → VS Code Extension → Node.js → Discord RPC → Discord       
+```
+VS Code
+  |
+  | Workspace
+  | File
+  | Language
+  | Git Branch
+  v
+VS Code Extension
+  |
+  | Discord IPC
+  v
+Discord
+  |
+  v
+Rich Presence
+```
 
-The VS Code extension collects information from the current workspace and sends it to the local Node.js application.
+The extension automatically updates the activity whenever the relevant VS Code information changes.
 
-The Node.js application then uses Discord RPC to update the user's Discord Rich Presence.
+---
 
-## Technologies
+## Project Evolution
 
-- JavaScript
-- Node.js
-- Discord RPC
-- Visual Studio Code Extension API
-- Git
-- GitHub
-- Windows Script Host (VBScript)
+### Prototype
+
+The first version was built as a standalone Node.js application.
+
+It required:
+
+```bash
+node index.js
+```
+
+and depended on a separate launcher to keep the process running.
+
+This version is preserved in the [`legacy`](legacy/) directory for reference.
+
+### Extension
+
+The project was redesigned around the VS Code Extension API.
+
+The new architecture removes the need for an external Node.js process and integrates the Discord RPC directly into VS Code.
+
+This makes the installation and usage significantly simpler.
+
+---
 
 ## Project Structure
 
---Index.js--
-The main Node.js application.
+```
+vscode-discord-rpc/
+|
++-- assets/
+|
++-- legacy/
+|   +-- index.js
+|   +-- package.json
+|   +-- package-lock.json
+|   +-- start-rpc.vbs
+|
++-- vscode-extension/
+|   +-- extension.js
+|   +-- package.json
+|   +-- LICENSE.txt
+|   +-- .vscodeignore
+|
++-- .gitignore
++-- README.md
+```
 
-It connects to Discord through Discord RPC and handles the Rich Presence data.
+---
 
---vscode-extension/--
+## Technologies
 
-Contains the custom Visual Studio Code extension responsible for collecting information from the active workspace.
-
---start-rpc.vbs--
-
-Optional Windows startup script that launches the RPC application without requiring the user to manually open a terminal.
-
-## Installation
-Requirements:
-
+* JavaScript
 * Node.js
-* Visual Studio Code
-* Discord Desktop
-* A Discord Application with Rich Presence enabled
-  
-1. Clone the repository
-git clone https://github.com/renanvelc/vscode-discord-rpc.git
-Then enter the project directory:
-cd vscode-discord-rpc
+* VS Code Extension API
+* Discord Rich Presence
+* Discord IPC
+* Git
 
-2. Install dependencies
-npm install
-
-3. Configure the Discord Application
-Create a Discord Application and obtain its Application ID.
-Configure the project with your Client ID before starting the RPC.
-Do not publish private credentials or tokens in the repository.
-
-4. Start the RPC
-node index.js
-The application should connect to Discord and wait for information from the VS Code extension.
-
-5. Install the VS Code Extension
-The extension is located inside:
-vscode-extension/
-Package the extension as a .vsix file and install it through Visual Studio Code.
-After installation, reload VS Code.
-
-## Automatic Startup
-
-The project includes:
-start-rpc.vbs
-
-This script can be configured to start the Node.js RPC automatically when Windows starts.
-This allows the RPC to run in the background without manually opening a terminal.
-
-## Privacy & Security
-
-The application is designed to communicate locally between the VS Code extension and the Node.js RPC process.
-The project does not need to upload your source code to a remote server.
-Only workspace-related information required for the Rich Presence is processed.
-
-Never commit:
-API keys
-Tokens
-Passwords
-Private credentials
-Personal configuration files
-
-Use .gitignore to keep local configuration files out of version control.
-
-## What I Learned
-
-This project was created as a practical way to explore:
-Node.js development
-Discord Rich Presence
-VS Code Extension development
-Local application communication
-Git and GitHub
-Workspace and file detection
-Windows automation
-
-It also helped me understand how different applications can communicate with each other through APIs and local services.
-
-## Future Improvements
-
-Possible improvements for future versions:
-
-- Improved coding session tracking
-- Easier configuration
-- More Rich Presence customization
-- Additional VS Code information
-- Custom project-specific assets
-- Easier installation
-- Better automatic reconnection handling
-
-## Why did I build this if VSCord already exists?
-
-This project started as an experiment to understand how Discord Rich Presence works with Visual Studio Code. Instead of relying on an existing extension, I built my own integration from scratch to learn how VS Code extensions, Node.js, HTTP communication and Discord RPC work together.
+---
 
 ## License
+
 This project is licensed under the MIT License.
