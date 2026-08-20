@@ -1,0 +1,17 @@
+{
+  "name": "vscode-discord-rpc-bridge",
+  "displayName": "VS Code Discord RPC Bridge",
+  "description": "Envia informações do workspace do VS Code para o Discord Rich Presence.",
+  "version": "1.0.0",
+  "publisher": "local",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./extension.js"
+}
