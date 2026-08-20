@@ -43,7 +43,7 @@ The Rich Presence can display information such as:
 
 The project consists of two main components:
 
-Visual Studio Code → Custom VS Code Extension → Workspace information → Node.js → index.js → Discord RPC Client → Discord → Discord → Rich Presence       
+Visual Studio Code → VS Code Extension → Node.js → Discord RPC → Discord       
 
 The VS Code extension collects information from the current workspace and sends it to the local Node.js application.
 
