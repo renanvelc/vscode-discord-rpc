@@ -19,11 +19,11 @@ This project connects Visual Studio Code to Discord through a local Node.js appl
 
 The Rich Presence can display information such as:
 
-> **Visual Studio Code**  
->  Coding in CVSCodeDiscordRPC  
->  index.js  
->  JavaScript  
->  main
+- **Visual Studio Code**  
+-  Coding in CVSCodeDiscordRPC  
+-  index.js  
+-  JavaScript  
+-  main
 
 ## How It Works
 
